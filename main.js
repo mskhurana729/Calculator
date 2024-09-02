@@ -6,19 +6,19 @@ const buttons = document.querySelectorAll('button');
 const textArea = document.querySelector('.textArea p');
 
 const add = function (a, b) {
-    return +a + +b;
+    return (+a + +b).toFixed(2);
 };
 
 const subtract = function (a, b) {
-    return +a - +b;
+    return (+a - +b).toFixed(2);
 };
 
 const divide = function (a, b) {
-    return +a / +b;
+    return (+a / +b).toFixed(2);
 };
 
 const multiply = function (a, b) {
-    return +a * +b;
+    return (+a * +b).toFixed(2);
 };
 
 function operate(operator, num1, num2) {
@@ -35,6 +35,8 @@ function display(displayValue) {
 }
 function clearScreen() {
     textArea.textContent = "";
+    displayValue = '';
+    resetValues();
 }
 function resetValues() {
     operator = '';
