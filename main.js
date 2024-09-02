@@ -44,12 +44,16 @@ function resetValues() {
     operator = '';
     firstNumber = '';
     secondNumber = '';
+    isDecimal = '';
 
 }
+function displayError() {
+    resetValues();
+    displayValue = 'ERROR';
+}
 function getResult() {
-    if (operator === '/' && firstNumber === '0') { //to stop crashing
-        resetValues();
-        displayValue = 'ERROR';
+    if (operator === '/' && firstNumber === '0' || firstNumber === '.' || secondNumber === '.') { //to stop crashing
+        displayError();
     } else {
         let result = operate(operator, firstNumber, secondNumber);
         displayValue = result ? result : displayValue;
@@ -63,9 +67,6 @@ function displayDecimalButton(isDecimal) {
 
 buttons.forEach(button => {
     button.addEventListener('click', (e) => {
-        // let isFirstNumberDecimal = false;
-        // let isSecondNumberDecimal = false;
-
         let value = button.textContent;
         if (value === "=") {
             getResult();
