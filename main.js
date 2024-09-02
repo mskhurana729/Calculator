@@ -1,9 +1,9 @@
+const buttons = document.querySelectorAll('button');
+const textArea = document.querySelector('.textArea p');
 let firstNumber = '';
 let operator = '';
 let secondNumber = '';
 let displayValue = '';
-const buttons = document.querySelectorAll('button');
-const textArea = document.querySelector('.textArea p');
 
 const add = function (a, b) {
     return (+a + +b).toFixed(2);
@@ -45,14 +45,20 @@ function resetValues() {
 
 }
 function getResult() {
-    let result = operate(operator, firstNumber, secondNumber);
-    displayValue = result ? result : displayValue;
-    resetValues();
-    firstNumber = displayValue;
+    if (operator === '/' && firstNumber === '0') { //to stop crashing
+        resetValues();
+        displayValue = 'ERROR';
+    } else {
+        let result = operate(operator, firstNumber, secondNumber);
+        displayValue = result ? result : displayValue;
+        resetValues();
+        firstNumber = displayValue;
+    }
 }
 
 buttons.forEach(button => {
     button.addEventListener('click', (e) => {
+
         let value = button.textContent;
         if (value === "=") {
             getResult();
@@ -72,7 +78,8 @@ buttons.forEach(button => {
             } else {
                 firstNumber += value;
             }
-            displayValue += button.textContent;
+
+            displayValue = firstNumber + operator + secondNumber;
         }
         display(displayValue);
 
