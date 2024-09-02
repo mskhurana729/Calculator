@@ -1,9 +1,11 @@
 const buttons = document.querySelectorAll('button');
 const textArea = document.querySelector('.textArea p');
+const decimalButton = document.querySelector('.decimal');
 let firstNumber = '';
 let operator = '';
 let secondNumber = '';
 let displayValue = '';
+let isDecimal = '';
 
 const add = function (a, b) {
     return (+a + +b).toFixed(2);
@@ -55,9 +57,14 @@ function getResult() {
         firstNumber = displayValue;
     }
 }
+function displayDecimalButton(isDecimal) {
+    isDecimal ? decimalButton.style.display = 'none' : decimalButton.style.display = 'inline';
+}
 
 buttons.forEach(button => {
     button.addEventListener('click', (e) => {
+        // let isFirstNumberDecimal = false;
+        // let isSecondNumberDecimal = false;
 
         let value = button.textContent;
         if (value === "=") {
@@ -73,15 +80,25 @@ buttons.forEach(button => {
                 if (operator) {
                     getResult();
                 } operator = value;
+                isDecimal = false;
             } else if (operator) { //if it is after an operator is clicked it will be the second number
+                if (value === '.') {
+                    isDecimal = true;
+
+                }
                 secondNumber += value;
             } else {
+                if (value === '.') {
+                    isDecimal = true;
+
+                }
                 firstNumber += value;
             }
 
             displayValue = firstNumber + operator + secondNumber;
         }
         display(displayValue);
+        displayDecimalButton(isDecimal);
 
     })
 
