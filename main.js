@@ -1,7 +1,9 @@
 let firstNumber = 0;
 let operator = '';
 let secondNumber = 0;
-
+let displayValue = '';
+const buttons = document.querySelectorAll('button');
+const textArea = document.querySelector('.textArea p');
 
 const add = function (a, b) {
     return a + b;
@@ -29,3 +31,18 @@ function operate(operator, num1, num2) {
         case '*': { return multiply(num1, num2); break };
     }
 }
+
+//we need to create a function which will display the buttons clicked and will store there value
+function display(displayValue) {
+    textArea.textContent = displayValue;
+
+}
+
+buttons.forEach(button => {
+    button.addEventListener('click', (e) => {
+
+        displayValue += button.textContent;
+        display(displayValue);
+    })
+
+});
