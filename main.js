@@ -68,7 +68,7 @@ function operate(operator, num1, num2) {
         case '+': { return add(num1, num2); break };
         case '-': { return subtract(num1, num2); break };
         case '/': { return divide(num1, num2); break };
-        case 'x': { return multiply(num1, num2); break };
+        case '*': { return multiply(num1, num2); break };
     }
 }
 
@@ -92,10 +92,13 @@ function displayError() {
     displayValue = 'ERROR';
 }
 function decimalNumber(num) {
-    return !(Number.isInteger(+num));
+    if (+num) {
+        return !(Number.isInteger(+num));
+    }
 }
 
 function getResult() {
+
     if (operator === '/' && firstNumber === '0' || firstNumber === '.' || secondNumber === '.') { //to stop crashing
         displayError();
     } else {
@@ -105,6 +108,8 @@ function getResult() {
         resetValues();
         firstNumber = displayValue;
         isDecimal = decimalNumber(result);
+        console.log(result);
+        console.log(isDecimal);
     }
 }
 function displayDecimalButton(isDecimal) {
@@ -120,9 +125,9 @@ function backspace(num) {
     num = num.join('');
     return num;
 }
-function calculator(e) {
-    let value = e.target.textContent;
-    if (value === "=") {
+function calculator(value) {
+    // let value = e.target.textContent;
+    if (value === "=" || value === 'Enter') {
         getResult();
     } else if (value === 'AC') {
         clearScreen();
@@ -130,7 +135,7 @@ function calculator(e) {
         if (value === '-' ||
             value === '+' ||
             value === '/' ||
-            value === 'x') {
+            value === '*') {
             if (operator) {
                 getResult();
             } operator = value;
@@ -140,13 +145,13 @@ function calculator(e) {
                 isDecimal = true;
 
             }
-            if (value === 'CE') {
+            if (value === 'Backspace') {
                 secondNumber = backspace(secondNumber);
                 isDecimal = decimalNumber(secondNumber);
                 console.log(isDecimal);
 
             }
-            if (!(value === 'CE')) {
+            if (!(value === 'Backspace')) {
                 secondNumber += value;
             }
         } else {
@@ -154,7 +159,7 @@ function calculator(e) {
                 isDecimal = true;
 
             }
-            if (value === 'CE') {
+            if (value === 'Backspace') {
 
                 firstNumber = backspace(firstNumber);
                 console.log(firstNumber);
@@ -162,17 +167,29 @@ function calculator(e) {
                 console.log(isDecimal);
 
             }
-            if (!(value === 'CE')) {
+            if (!(value === 'Backspace')) {
                 firstNumber += value;
             }
         }
-
         displayValue = firstNumber + operator + secondNumber;
     }
     displayDecimalButton(isDecimal);
     display(displayValue);
-
+    textArea.focus();
 
 }
-// we need to add a functionality when backspace is clicked they can undo the last number entered
-buttons.forEach(button => button.addEventListener('click', (e) => calculator(e)));
+buttons.forEach(button => button.addEventListener('click', (e) => calculator(e.target.textContent)));
+
+function isValidKey(key) {
+    let validKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '+', '-', '=', 'Backspace', 'Enter']
+    return validKeys.includes(key);
+}
+
+
+document.addEventListener('keydown', (e) => {
+    console.log(e);
+    if (isValidKey(e.key)) calculator(e.key);
+
+    e.preventDefault();
+
+});
