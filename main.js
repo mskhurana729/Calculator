@@ -181,7 +181,7 @@ function calculator(value) {
 buttons.forEach(button => button.addEventListener('click', (e) => calculator(e.target.textContent)));
 
 function isValidKey(key) {
-    let validKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '+', '-', '=', 'Backspace', 'Enter']
+    let validKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '+', '-', '=', 'Backspace', 'Enter', '.']
     return validKeys.includes(key);
 }
 
@@ -189,7 +189,6 @@ function isValidKey(key) {
 document.addEventListener('keydown', (e) => {
     console.log(e);
     if (isValidKey(e.key)) calculator(e.key);
-
     e.preventDefault();
 
 });
