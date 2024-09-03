@@ -8,24 +8,42 @@ body {
     min-width: 200px;
     min-height: 50px;
     border: 2px solid black;
-    /* flex-basis: 1; */
+    box-shadow: 10px darkgray;
+    padding: 10px;
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .calculator {
     padding: 10px;
-    border: 4px solid red;
-    width: 200px;
-    height: 200px;
+    border: 10px solid darkgray;
+    background-color: lightgray;
+    width: 500px;
+    height: 300px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
     flex-direction: column;
     gap: 10px;
-    /* flex-basis: 1; */
+
 }
 
 .buttons {
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
+}
+
+.numericButton {
+    background-color: rgb(1, 42, 56);
+    color: white;
+}
+
+.functionButton {
+    background-color: rgb(6, 106, 124);
+    color: white;
+}
+
+button {
+    min-width: 85px;
+    height: 35px;
 }
